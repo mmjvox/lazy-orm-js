@@ -1,6 +1,6 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-import LazyOrmWrapper, {LazyOrmQuery} from '../lib/InitDynamicLibrary.mjs';
+import LazyOrmWrapper from '../lib/InitDynamicLibrary.mjs';
 
 
 test('doubleSend', () => {

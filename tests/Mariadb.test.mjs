@@ -1,21 +1,17 @@
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-import MariadbLazy from '../lib/MariadbLazy.mjs';
-import DbList from '../lib/DbList.mjs';
-import {LazyOrmQuery, LazyOrmProperties, LazyOrmFilter, LazyOrmWhere} from '../lib/InitDynamicLibrary.mjs';
+import { MariadbLazy, DbList, LazyOp } from '../index.mjs';
 
 
 
 let lazyOrm = new MariadbLazy();
-lazyOrm[LazyOrmQuery.SELECT] = "student";
+lazyOrm[LazyOp.SELECT] = "student";
 lazyOrm["<<"] = ["name","age","hair","*"];
-// lazyOrm[LazyOrmProperties] = ["name","age","hair","*"];
-lazyOrm[LazyOrmFilter.GROUPBY] = ["group1","group2"];
-lazyOrm[LazyOrmFilter.ORDERBY] = ["num1","num2"];
-lazyOrm[LazyOrmFilter.LIMIT] = [11,23];
-
-
-lazyOrm[LazyOrmWhere.WHERE] = [["grade","in", new DbList([1,5,7,9]) ]];
+// lazyOrm[LazyOp.Properties] = ["name","age","hair","*"];
+lazyOrm[LazyOp.GROUPBY] = ["group1","group2"];
+lazyOrm[LazyOp.ORDERBY] = ["num1","num2"];
+lazyOrm[LazyOp.LIMIT] = [11,23];
+lazyOrm[LazyOp.WHERE] = [["grade","in", DbList([1,5,7,9]) ]];
 
 console.log(lazyOrm.queryString());
 
