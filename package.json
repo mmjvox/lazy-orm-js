@@ -1,7 +1,7 @@
 {
   "name": "lazy-orm-js",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "test": "uvu tests"
   },
