@@ -3,30 +3,35 @@ import * as assert from 'uvu/assert';
 import { MariadbLazy, DbList, LazyOp } from '../index.mjs';
 
 
+test('select', () => {
 
-let lazyOrm = new MariadbLazy();
-lazyOrm[LazyOp.SELECT] = "student";
-lazyOrm["<<"] = ["name","age","hair","*"];
-// lazyOrm[LazyOp.Properties] = ["name","age","hair","*"];
-lazyOrm[LazyOp.GROUPBY] = ["group1","group2"];
-lazyOrm[LazyOp.ORDERBY] = ["num1","num2"];
-lazyOrm[LazyOp.LIMIT] = [11,23];
-lazyOrm[LazyOp.WHERE] = [["grade","in", DbList([1,5,7,9]) ]];
+    let lazyOrm = new MariadbLazy();
+    lazyOrm[LazyOp.SELECT] = "student";
+    lazyOrm["<<"] = ["name","age","hair","*"];
+    // lazyOrm[LazyOp.PROPERTIES] = ["name","age","hair","*"];
+    lazyOrm[LazyOp.GROUPBY] = ["group1","group2"];
+    lazyOrm[LazyOp.ORDERBY] = ["num1","num2"];
+    lazyOrm[LazyOp.LIMIT] = [11,23];
+    lazyOrm[LazyOp.WHERE] = [["grade","in", DbList([1,5,7,9]) ]];
+    
 
-console.log(lazyOrm.queryString());
+  assert.is(lazyOrm.queryString(), "SELECT *,`age`,`hair`,`name` FROM student WHERE (`grade` in (1,5,7,9))  GROUP BY 'group1','group2'  ORDER BY 'num1','num2'  LIMIT 11,23 ;");
+
+});
 
 
-// test('doubleSend', () => {
+test('insert', () => {
 
-//   const maxDouble = Number.MAX_VALUE;
-//   const minDouble = Number.MIN_VALUE;
+    let lazyOrm = new MariadbLazy();
+    lazyOrm[LazyOp.INSERT]="student";
+    lazyOrm["name"]="anya";
+    lazyOrm["age"]= 6;
+    lazyOrm["hair"]="pink";
+    lazyOrm["cute"]=true;
+    
 
-//   let md = LazyOrmWrapper.doubleSend(maxDouble);
-//   assert.is(md, maxDouble);
+  assert.is(lazyOrm.queryString(), "INSERT INTO student (`age`,`cute`,`hair`,`name`) VALUES ('6',true,'pink','anya') ;");
 
-//   md = LazyOrmWrapper.doubleSend(minDouble);
-//   assert.is(md, minDouble);
+});
 
-// });
-
-// test.run();
+test.run();
