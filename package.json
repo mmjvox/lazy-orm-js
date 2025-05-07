@@ -1,10 +1,20 @@
 {
   "name": "lazy-orm-js",
   "version": "0.0.1",
+  "type": "module",
   "main": "index.mjs",
+  "engines": { "node": ">=20.18.0" },
+  "exports": {
+    ".": "./index.mjs",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "test": "uvu tests"
   },
+  "files": [
+    "index.mjs",
+    "lib/**/*"
+  ],
   "dependencies": {
     "@xan105/ffi": "^1.3.0",
     "koffi": "^2.11.0",
